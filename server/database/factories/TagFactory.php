@@ -18,7 +18,7 @@ class TagFactory extends Factory
     {
 
         return [
-            'name' => $this->faker->text(14)
+            'name' => $this->faker->word(14)
         ];
     }
 }

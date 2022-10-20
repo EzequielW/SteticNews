@@ -25,7 +25,7 @@ class PostController extends Controller
         else{
             $searchTerm = $request->query('search');
             $posts = Post::whereHas('tags', function($query) use ($searchTerm) {
-                $query->whereName($searchTerm);
+                $query->whereRaw("? LIKE CONCAT('%', `name`, '%')", [$searchTerm]);;
             });
             return new PostCollection($posts->paginate(3));
         }

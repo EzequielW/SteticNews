@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Post;
+use App\Http\Resources\V1\PostResource;
+use App\Http\Resources\V1\PostCollection;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Controllers\Controller;
@@ -16,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return new PostCollection(Post::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return new PostResource($post);
     }
 
     /**

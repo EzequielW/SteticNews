@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Region;
+use App\Http\Resources\V1\RegionResource;
+use App\Http\Resources\V1\RegionCollection;
 use App\Http\Requests\StoreRegionRequest;
 use App\Http\Requests\UpdateRegionRequest;
 use App\Http\Controllers\Controller;
@@ -16,7 +18,7 @@ class RegionController extends Controller
      */
     public function index()
     {
-        //
+        return new RegionCollection(Region::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class RegionController extends Controller
      */
     public function show(Region $region)
     {
-        //
+        return new RegionResource($region);
     }
 
     /**

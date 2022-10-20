@@ -26,5 +26,5 @@ Route::group(['prefix' => 'v1', 'namespaces' => 'Api\Http\Controllers\Api\V1'], 
     Route::apiResource('posts', PostController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('regions', RegionController::class);
-    Route::apiResource('external_links', ExternalLink::class);
+    Route::apiResource('external_links', ExternalLinkController::class);
 });

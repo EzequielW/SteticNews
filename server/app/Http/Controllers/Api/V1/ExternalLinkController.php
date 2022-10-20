@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\ExternalLink;
+use App\Http\Resources\V1\ExternalLinkResource;
+use App\Http\Resources\V1\ExternalLinkCollection;
 use App\Http\Requests\StoreExternalLinkRequest;
 use App\Http\Requests\UpdateExternalLinkRequest;
 use App\Http\Controllers\Controller;
@@ -16,7 +18,7 @@ class ExternalLinkController extends Controller
      */
     public function index()
     {
-        //
+        return new ExternalLinkCollection(ExternalLink::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class ExternalLinkController extends Controller
      */
     public function show(ExternalLink $externalLink)
     {
-        //
+        return new ExternalLinkResource($externalLink);
     }
 
     /**

@@ -19,20 +19,20 @@
     </q-header>
 
     <q-page-container>
-      <HelloWorld />
+      <HomePage />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import { ref } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import HomePage from './components/HomePage.vue'
 
 export default {
   name: 'LayoutDefault',
 
   components: {
-    HelloWorld
+    HomePage
   },
 
   setup () {

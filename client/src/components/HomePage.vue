@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="../assets/logo.svg" style="width: 100px; height: 100px">
+    <PostItem />
   </q-page>
 </template>
 
@@ -8,7 +8,12 @@
 </style>
 
 <script>
+import PostItem from './PostItem'
+
 export default {
-  name: 'HelloWorld'
+  name: 'HomePage',
+  components: {
+    PostItem
+  },
 }
 </script>

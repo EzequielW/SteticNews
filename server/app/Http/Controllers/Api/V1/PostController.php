@@ -8,6 +8,7 @@ use App\Http\Resources\V1\PostCollection;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -16,9 +17,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new PostCollection(Post::paginate(3));
+        if($request->query('search') == null){
+            return new PostCollection(Post::paginate(3));
+        }
+        else{
+            $searchTerm = $request->query('search');
+            $posts = Post::whereHas('tags', function($query) use ($searchTerm) {
+                $query->whereName($searchTerm);
+            });
+            return new PostCollection($posts->paginate(3));
+        }
     }
 
     /**

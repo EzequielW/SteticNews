@@ -18,11 +18,13 @@ class PostSeeder extends Seeder
         Post::factory()
             ->count(5)
             ->hasExternalLinks(2)
+            ->hasTags(4)
             ->create();
 
         Post::factory()
             ->count(5)
             ->hasExternalLinks(1)
+            ->hasTags(3)
             ->create();
     }
 }

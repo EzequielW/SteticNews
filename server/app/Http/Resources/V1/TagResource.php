@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class TagResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,7 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'content' => $this->content,
-            'region' => $this->region,
-            'category' => $this->category,
-            'externalLinks' => $this->externalLinks,
-            'tags' => $this->tags,
-            'createdAt' => $this->created_at
+            'name' => $this->name,
         ];
     }
 }

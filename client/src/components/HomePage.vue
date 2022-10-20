@@ -15,7 +15,7 @@
         />
       </div> 
       <div class="flex justify-end items-center">
-        <span>{{ getPostsNumber() }} of {{ total }}</span>
+        <span>{{ getPageNumber() }} of {{ total }}</span>
         <q-pagination
           v-model="currentPage"
           :max="lastPage"
@@ -58,11 +58,9 @@ export default {
     }
   },
   methods: {
-    getPostsNumber() {
-      const first = 1 + 3 * this.currentPage;
-      const last = 3 + 3 * this.currentPage;
-      
-      return  first + "-" + last;
+    getPageNumber() {
+      const pageNumber = this.from == this.to ? this.to : this.from + '-' + this.to;
+      return pageNumber;
     }
   },
   created() {
@@ -72,6 +70,9 @@ export default {
         this.posts = res.data;
         this.lastPage = res.meta.last_page;
         this.total = res.meta.total;
+        this.from = res.meta.from;
+        this.to = res.meta.to;
+        this.loadingPage = false;
       })
       .catch(err => console.log(err));
   },
@@ -83,6 +84,8 @@ export default {
           this.posts = res.data;
           this.lastPage = res.meta.last_page;
           this.total = res.meta.total;
+          this.from = res.meta.from;
+          this.to = res.meta.to;
           this.loadingPage = false;
         })
         .catch(err => console.log(err));

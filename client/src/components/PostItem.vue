@@ -14,7 +14,7 @@
     <q-separator inset class="q-mx-none" />
 
     <q-card-section class="flex justify-between">
-      <div class="text-subtitle2">hoy, 11:30</div>
+      <div class="text-subtitle2">{{ formatDate(post.createdAt) }}</div>
       <div class="text-subtitle2 flex">
         Leer mas en
         <div v-for="(link, index) in post.externalLinks" v-bind:key="link.id">
@@ -42,12 +42,32 @@
 </style>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'PostItem',
   props: ['post'],
   methods: {
     formatDate(timestamp){
-      return timestamp;
+      let dateString = '';
+      const today = new Date();
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate - 1);
+
+      const date = new Date(timestamp);
+      if(today.setHours(0,0,0,0) == date.setHours(0,0,0,0)) {
+        dateString = 'Hoy, ' + date.getHours() + ':' + date.getMinutes();
+      }
+      else if(yesterday.setHours(0,0,0,0) == date.setHours(0,0,0,0)){
+        dateString = 'Ayer, ' + date.getHours() + ':' + date.getMinutes();
+      }
+      else{
+        const momentDate = moment(timestamp).locale('es');
+        dateString = momentDate.date() + " de " + momentDate.format('MMMM') + ', ' 
+          + momentDate.format('hh') + ':' + momentDate.format('mm');
+      }
+
+      return dateString;
     },
     getHostname(url){
       let { hostname } = new URL(url);

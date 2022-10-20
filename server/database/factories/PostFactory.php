@@ -21,7 +21,8 @@ class PostFactory extends Factory
         return [
             'content' => $this->faker->text(),
             'region_id' => Region::factory(),
-            'category_id' => Category::factory()
+            'category_id' => Category::factory(),
+            'created_at' => $this->faker->dateTimeThisMonth()
         ];
     }
 }

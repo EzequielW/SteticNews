@@ -1,26 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <q-layout>
+    <q-header class="bg-white text-black">
+      <q-toolbar>
+        <q-toolbar-title>
+          Stetic News
+        </q-toolbar-title>
+        
+        <q-input
+          debounce="500"
+          borderless
+          placeholder="Search"
+        >
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </q-toolbar>
+    </q-header>
+
+    <q-page-container>
+      <HelloWorld />
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
+import { ref } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
+  name: 'LayoutDefault',
+
   components: {
     HelloWorld
+  },
+
+  setup () {
+    return {
+      leftDrawerOpen: ref(false)
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

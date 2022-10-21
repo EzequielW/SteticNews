@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\ExternalLink;
 use App\Http\Resources\V1\ExternalLinkResource;
 use App\Http\Resources\V1\ExternalLinkCollection;
-use App\Http\Requests\StoreExternalLinkRequest;
-use App\Http\Requests\UpdateExternalLinkRequest;
+use App\Http\Requests\V1\StoreExternalLinkRequest;
+use App\Http\Requests\V1\UpdateExternalLinkRequest;
 use App\Http\Controllers\Controller;
 
 class ExternalLinkController extends Controller
@@ -22,16 +22,6 @@ class ExternalLinkController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreExternalLinkRequest  $request
@@ -39,7 +29,7 @@ class ExternalLinkController extends Controller
      */
     public function store(StoreExternalLinkRequest $request)
     {
-        //
+        return new ExternalLinkResource(ExternalLink::create($request->all()));
     }
 
     /**
@@ -54,17 +44,6 @@ class ExternalLinkController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ExternalLink  $externalLink
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ExternalLink $externalLink)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateExternalLinkRequest  $request
@@ -73,7 +52,7 @@ class ExternalLinkController extends Controller
      */
     public function update(UpdateExternalLinkRequest $request, ExternalLink $externalLink)
     {
-        //
+        return $externalLink->update($request->all());
     }
 
     /**
@@ -84,6 +63,6 @@ class ExternalLinkController extends Controller
      */
     public function destroy(ExternalLink $externalLink)
     {
-        //
+        $externalLink->delete();
     }
 }

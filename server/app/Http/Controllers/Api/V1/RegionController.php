@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Region;
 use App\Http\Resources\V1\RegionResource;
 use App\Http\Resources\V1\RegionCollection;
-use App\Http\Requests\StoreRegionRequest;
-use App\Http\Requests\UpdateRegionRequest;
+use App\Http\Requests\V1\StoreRegionRequest;
+use App\Http\Requests\V1\UpdateRegionRequest;
 use App\Http\Controllers\Controller;
 
 class RegionController extends Controller
@@ -22,16 +22,6 @@ class RegionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreRegionRequest  $request
@@ -39,7 +29,7 @@ class RegionController extends Controller
      */
     public function store(StoreRegionRequest $request)
     {
-        //
+        return new RegionResource(Region::create($request->all()));
     }
 
     /**
@@ -54,17 +44,6 @@ class RegionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Region  $region
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Region $region)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateRegionRequest  $request
@@ -73,7 +52,7 @@ class RegionController extends Controller
      */
     public function update(UpdateRegionRequest $request, Region $region)
     {
-        //
+        return $region->update($request->all());
     }
 
     /**
@@ -84,6 +63,6 @@ class RegionController extends Controller
      */
     public function destroy(Region $region)
     {
-        //
+        $region->delete();
     }
 }

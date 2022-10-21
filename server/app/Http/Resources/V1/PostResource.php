@@ -17,10 +17,10 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'content' => $this->content,
-            'region' => $this->region,
-            'category' => $this->category,
-            'externalLinks' => $this->externalLinks,
-            'tags' => $this->tags,
+            'region' => new RegionResource($this->region),
+            'category' => new CategoryResource($this->category),
+            'externalLinks' => new ExternalLinkCollection($this->externalLinks),
+            'tags' => new TagCollection($this->tags),
             'createdAt' => $this->created_at
         ];
     }

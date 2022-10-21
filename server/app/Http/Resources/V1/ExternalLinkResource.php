@@ -16,7 +16,8 @@ class ExternalLinkResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'url' => $this->url
+            'url' => $this->url,
+            'post' => $this->post_id
         ];
     }
 }

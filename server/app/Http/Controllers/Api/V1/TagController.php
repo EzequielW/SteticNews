@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Http\Resources\V1\TagResource;
 use App\Http\Resources\V1\TagCollection;
-use App\Http\Requests\StoreTagRequest;
-use App\Http\Requests\UpdateTagRequest;
+use App\Http\Requests\V1\StoreTagRequest;
+use App\Http\Requests\V1\UpdateTagRequest;
 use App\Http\Controllers\Controller;
 
 class TagController extends Controller
@@ -22,16 +22,6 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreTagRequest  $request
@@ -39,7 +29,7 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        //
+        return new TagResource(Tag::create($request->all()));
     }
 
     /**
@@ -54,17 +44,6 @@ class TagController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tag $tag)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateTagRequest  $request
@@ -73,7 +52,7 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        //
+        return $tag->update($request->all());
     }
 
     /**
@@ -84,6 +63,6 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
     }
 }

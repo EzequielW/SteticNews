@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->bigInteger('post_id')->unsigned()->index();
-            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
     }

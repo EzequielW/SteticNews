@@ -2,7 +2,7 @@
   <q-card flat bordered class="post-item">
     <q-card-section class="flex justify-between">
       <div class="text-subtitle2">{{ post.category.name }}</div>
-      <div class="text-subtitle2">{{ post.region.name }}</div>
+      <div v-if="post.region" class="text-subtitle2">{{ post.region.name }}</div>
     </q-card-section>
 
     <q-separator inset class="q-mx-none" />
@@ -15,7 +15,7 @@
 
     <q-card-section class="flex justify-between">
       <div class="text-subtitle2">{{ formatDate(post.createdAt) }}</div>
-      <div class="text-subtitle2 flex">
+      <div v-if="post.externalLinks.length > 0" class="text-subtitle2 flex">
         Leer mas en
         <div v-for="(link, index) in post.externalLinks" v-bind:key="link.id">
           &nbsp;
@@ -54,11 +54,13 @@ export default {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate - 1);
 
-      const date = new Date(timestamp);
+      let date = new Date(timestamp);
       if(today.setHours(0,0,0,0) == date.setHours(0,0,0,0)) {
+        date = new Date(timestamp);
         dateString = 'Hoy, ' + date.getHours() + ':' + date.getMinutes();
       }
       else if(yesterday.setHours(0,0,0,0) == date.setHours(0,0,0,0)){
+        date = new Date(timestamp);
         dateString = 'Ayer, ' + date.getHours() + ':' + date.getMinutes();
       }
       else{

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('content', 255);
-            $table->bigInteger('region_id')->unsigned()->index();
+            $table->bigInteger('region_id')->nullable()->unsigned()->index();
             $table->foreign('region_id')->references('id')->on('regions');
             $table->bigInteger('category_id')->unsigned()->index();
             $table->foreign('category_id')->references('id')->on('categories');

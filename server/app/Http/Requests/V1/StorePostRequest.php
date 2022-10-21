@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +13,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'content' => ['required', 'max:255'],
+            'region' => ['nullable'],
+            'category' => ['required']
         ];
+    }
+
+    protected function prepareForValidation(){
+        $this->merge([
+            'region_id' => $this->region,
+            'category_id' => $this->category
+        ]);
     }
 }

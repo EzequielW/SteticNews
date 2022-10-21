@@ -9,9 +9,10 @@ const getAll = async () => {
     }
 }
 
-const getByPage = async (page) => {
+const getByPage = async (page, searchTerm) => {
     try{
-        const posts = await Api().get(`/posts?page=${page}`);
+        const search = searchTerm ? `&search=${searchTerm}` : ''
+        const posts = await Api().get(`/posts?page=${page}${search}`);
         return posts.data;
     } catch(err){
         console.log(err);

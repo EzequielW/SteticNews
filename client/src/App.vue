@@ -10,6 +10,7 @@
           debounce="500"
           borderless
           placeholder="Search"
+          v-model="searchTerm"
         >
           <template v-slot:append>
             <q-icon name="search" />
@@ -19,7 +20,7 @@
     </q-header>
 
     <q-page-container>
-      <HomePage />
+      <HomePage v-bind:searchTerm="searchTerm"/>
     </q-page-container>
   </q-layout>
 </template>
@@ -34,7 +35,11 @@ export default {
   components: {
     HomePage
   },
-
+  data() {
+    return {
+      searchTerm: ''
+    }
+  },
   setup () {
     return {
       leftDrawerOpen: ref(false)

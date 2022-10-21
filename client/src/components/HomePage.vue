@@ -1,12 +1,17 @@
 <template>
   <q-page class="row justify-center">
     <div class="col-auto q-pt-xl">
-      <div>
+      <div class="posts-container column">
         <div v-for="post in posts" v-bind:key="post.id">
           <PostItem v-bind:post="post" class="q-mb-sm"/>
         </div>
+        <div v-if="!loadingPage && posts.length == 0" 
+          class="text-body1 q-my-auto empty-result">
+          <q-icon name="info" size="24px" color="blue"/>
+          No se encontraron resultados para tu busqueda
+        </div>
         <q-circular-progress
-          v-if="posts.length == 0 || loadingPage"
+          v-if="loadingPage"
           indeterminate
           rounded
           size="50px"
@@ -37,6 +42,14 @@
     top: 35%;
     z-index: 10;
   }
+
+  .posts-container{
+    min-height: 300px;
+  }
+
+  .empty-result{
+    height: 100%;
+  }
 </style>
 
 <script>
@@ -45,6 +58,7 @@ import PostService from '../services/PostService'
 
 export default {
   name: 'HomePage',
+  props: ['searchTerm'],
   components: {
     PostItem
   },
@@ -54,41 +68,50 @@ export default {
       currentPage: 0,
       lastPage: 0,
       loadingPage: false,
-      total: 0
+      total: 0,
+      from: 0,
+      to: 0
     }
   },
   methods: {
     getPageNumber() {
-      const pageNumber = this.from == this.to ? this.to : this.from + '-' + this.to;
+      let pageNumber = this.from + '-' + this.to;
+
+      if(this.from == this.to){
+        if(this.from > 0){
+          pageNumber = this.to;
+        }
+        else{
+          pageNumber = 0;
+        }
+      }
+
       return pageNumber;
-    }
-  },
-  created() {
-    this.loadingPage = true;
-    PostService.getAll()
-      .then(res => {
-        this.posts = res.data;
-        this.lastPage = res.meta.last_page;
-        this.total = res.meta.total;
-        this.from = res.meta.from;
-        this.to = res.meta.to;
-        this.loadingPage = false;
-      })
-      .catch(err => console.log(err));
-  },
-  watch: {
-    currentPage: function(page) {
+    },
+    getPosts() {
       this.loadingPage = true;
-      PostService.getByPage(page)
+      PostService.getByPage(this.currentPage, this.searchTerm)
         .then(res => {
           this.posts = res.data;
           this.lastPage = res.meta.last_page;
           this.total = res.meta.total;
           this.from = res.meta.from;
           this.to = res.meta.to;
-          this.loadingPage = false;
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
+        .finally(() => this.loadingPage = false);
+    }
+  },
+  created() {
+    this.getPosts();
+  },
+  watch: {
+    currentPage: function() {
+      this.getPosts();
+    },
+    searchTerm: function() {
+      this.getPosts();
+      console.log(this.searchTerm);
     }
   }
 }

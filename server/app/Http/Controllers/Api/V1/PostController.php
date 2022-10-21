@@ -20,14 +20,31 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if($request->query('search') == null){
-            return new PostCollection(Post::paginate(3));
+            return new PostCollection(Post::orderBy('created_at', 'desc')->paginate(3));
         }
         else{
             $searchTerm = $request->query('search');
-            $posts = Post::whereHas('tags', function($query) use ($searchTerm) {
-                $query->whereRaw("? LIKE CONCAT('%', `name`, '%')", [$searchTerm]);;
+            // split on 1+ whitespace & ignore empty (eg. trailing space)
+            $searchValues = preg_split('/\s+/', $searchTerm, -1, PREG_SPLIT_NO_EMPTY);
+
+            $postsByTags = Post::whereHas('tags', function($query) use ($searchValues) {
+                foreach ($searchValues as $key=>$value) {
+                    if($key == 0){
+                        $query->whereRaw("? LIKE CONCAT('%', `name`, '%')", [$value]);
+                    }
+                    else{
+                        $query->orWhereRaw("? LIKE CONCAT('%', `name`, '%')", [$value]);
+                    }
+                }
+            }); 
+
+            $postsByContent = $postsByTags->orWhere(function($query) use ($searchValues) {
+                foreach ($searchValues as $value) {
+                    $query->orWhere('content', 'like', "%{$value}%");
+                }
             });
-            return new PostCollection($posts->paginate(3));
+
+            return new PostCollection($postsByContent->orderBy('created_at', 'desc')->paginate(3));
         }
     }
 

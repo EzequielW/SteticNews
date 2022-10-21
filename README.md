@@ -176,9 +176,9 @@ and remove the semicolon `;`
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+There are api docs available in `http://localhost:8000/request-docs`
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+[![Docs Screenshot][docs-screenshot]](http://localhost:8000/request-docs)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -263,6 +263,7 @@ Project Link: [https://github.com/EzequielW/SteticNews](https://github.com/Ezequ
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/ezequiel-baez-149319190
 [product-screenshot]: images/screenshot.png
+[docs-screenshot]: images/docs-screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

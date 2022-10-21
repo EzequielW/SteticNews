@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api\v1;
 
 use App\Models\Tag;
 use App\Http\Resources\V1\TagResource;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\PostController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\RegionController;
 use App\Http\Controllers\Api\V1\ExternalLinkController;
+use App\Http\Controllers\Api\V1\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,5 @@ Route::group(['prefix' => 'v1', 'namespaces' => 'Api\Http\Controllers\Api\V1'], 
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('regions', RegionController::class);
     Route::apiResource('external_links', ExternalLinkController::class);
+    Route::apiResource('tags', TagController::class);
 });

@@ -131,7 +131,7 @@ To get a local copy up and running follow these simple steps.
     ```
 3. Create `.env.local` file under `/client` with the port on which you're gonna run the server
     ```sh
-    VUE_APP_SERVER_URL=http://localhost:8000
+    VUE_APP_SERVER_URL=http://localhost:8000/api/v1
     ```
 4. You may have to edit your `php.ini` file in order to enable required extensions search `extension=pdo_mysql`, `extension=openssl`, `extension=fileinfo` 
 and remove the semicolon `;`
